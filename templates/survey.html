@@ -11,14 +11,16 @@
 
             h1 {
                 font-family: 'Roboto', sans-serif;
+                margin: 0;
             }
 
             body {
                 font-family: Arial, sans-serif;
-                font-size: 16px;
+                font-size: 20px;
                 line-height: 1.5;
                 text-align: center;
                 background-color: #93a2be; /* Set the background color for the sides */
+                height: 100%;
                 margin: 0;
                 padding: 0;
             }
@@ -27,44 +29,48 @@
                 max-width: 60vw; /* Adjust as needed */
                 margin: 0 auto;
                 background-color: #fff; /* Set the background color for the centered content */
-                height: 100vh; /* Set the container height to 100% of the viewport height */
+                min-height: 100vh; /* Set the container height to 100% of the viewport height */
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
             }
 
+            .container .content {
+              flex-grow: 1;
+            }
+
             .header {
                 text-align: center; /* Center the image horizontally */
-                margin-bottom: 20px; /* Add some spacing below the header */
             }
 
             .survey-form {
                 display: flex;
                 flex-direction: column;
+                flex-grow: 1;
                 align-items: center;
-                padding: 20px;
                 max-width: 600px;
                 margin: 0 auto;
             }
 
             .submit-button {
-                margin-top: 40px;
+                margin-top: 20px;
             }
 
             .error-message {
                 color: red;
-                font-size: 16px;
+                font-size: 20px;
             }
 
             .submit-button button {
                 background-color: #4CAF50;
                 color: white;
                 padding: 10px 20px;
-                font-size: 16px;
+                margin-bottom: 20px;
+                font-size: 20px;
                 border: none;
                 border-radius: 4px;
-                cursor: pointer;
+                cursor: pointer
             }
 
             .submit-button button:hover {
@@ -74,7 +80,6 @@
              .thank-you-message {
                 text-align: center;
                 font-size: 30px;
-                margin-top: 20px;
             }
 
             /* Custom styling for star-shaped radio buttons */
@@ -104,7 +109,7 @@
 
             @media (max-width: 500px) {
                 body {
-                  font-size: 14px;
+                  font-size: 18px;
                 }
 
                 .survey-form {
@@ -217,10 +222,6 @@
                 </form>
             </div>
 
-            <!-- Add the Export CSV button below the form -->
-            <div>
-                <a href="/export" class="btn btn-primary">Export CSV</a>
-            </div>
         </div>
         {% endif %}
     </body>
