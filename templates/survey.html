@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Miami Realtors Survey Form</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #93a2be; /* Set the background color for the sides */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px; /* Adjust as needed */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* Set the background color for the centered content */
+            height: 95vh; /* Set the container height to 100% of the viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center; /* Center the image horizontally */
+            margin-bottom: 20px; /* Add some spacing below the header */
+        }
+
+        .survey-form {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .submit-button {
+            margin-top: 40px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+        }
+
+        .submit-button button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-button button:hover {
+            background-color: #45a049;
+        }
+
+         .thank-you-message {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 20px;
+        }
+
+        /* Custom styling for star-shaped radio buttons */
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            display: inline-block;
+            font-size: 0;
+            cursor: pointer;
+        }
+
+        .star-rating label:before {
+            content: "\2606";
+            font-size: 30px;
+            margin-right: 5px;
+        }
+
+        .star-rating input[type="radio"]:checked ~ label:before {
+            content: "\2605";
+        }
+
+        .star-rating input[type="radio"]:checked ~ label ~ label:before {
+            content: "\2606";
+        }
+    </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            var starRadios = document.querySelectorAll('.star-rating input[type="radio"]');
+
+            starRadios.forEach(function(radio) {
+                radio.addEventListener("change", function() {
+                    var currentRating = parseInt(this.value);
+                    var labels = this.parentNode.querySelectorAll("label");
+
+                    labels.forEach(function(label, index) {
+                        if (index < currentRating) {
+                            label.classList.add("active");
+                        } else {
+                            label.classList.remove("active");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    {% if submitted %}
+        <div class="container">
+            <div class="thank-you-message">
+                <b>Thanks for submitting the survey!</b>
+            </div>
+        </div>
+    {% else %}
+
+    <div class="container">
+        {% if error_message %}
+        <div class="error-message">
+            <b>Please answer all questions.</b>
+        </div>
+        {% endif %}
+
+        <div class="header">
+            <img src="static/images/miamirelogo.png" alt="Header Image"
+                 style="width: 300px; height: auto;">
+            <h1>Survey Form</h1>
+        </div>
+
+        <div class="survey-form">
+            <form action="/" method="post">
+                <!-- Question 1 with star-shaped radio buttons for rating -->
+                <div class="star-rating">
+                    <p>Rate our service:</p>
+                    <input type="radio" id="rating1" name="Question 1" value="1">
+                    <label for="rating1"></label>
+                    <input type="radio" id="rating2" name="Question 1" value="2">
+                    <label for="rating2"></label>
+                    <input type="radio" id="rating3" name="Question 1" value="3">
+                    <label for="rating3"></label>
+                    <input type="radio" id="rating4" name="Question 1" value="4">
+                    <label for="rating4"></label>
+                    <input type="radio" id="rating5" name="Question 1" value="5">
+                    <label for="rating5"></label>
+                </div>
+                <!-- Add more questions and input fields as needed -->
+                <div class="star-rating">
+                    <p>Rate the presenter:</p>
+                    <input type="radio" id="rating6" name="Question 2" value="1">
+                    <label for="rating6"></label>
+                    <input type="radio" id="rating7" name="Question 2" value="2">
+                    <label for="rating7"></label>
+                    <input type="radio" id="rating8" name="Question 2" value="3">
+                    <label for="rating8"></label>
+                    <input type="radio" id="rating9" name="Question 2" value="4">
+                    <label for="rating9"></label>
+                    <input type="radio" id="rating10" name="Question 2" value="5">
+                    <label for="rating10"></label>
+                </div>
+
+                <div class="star-rating">
+                    <p>Rate the quality of the presentation:</p>
+                    <input type="radio" id="rating11" name="Question 3" value="1">
+                    <label for="rating11"></label>
+                    <input type="radio" id="rating12" name="Question 3" value="2">
+                    <label for="rating12"></label>
+                    <input type="radio" id="rating13" name="Question 3" value="3">
+                    <label for="rating13"></label>
+                    <input type="radio" id="rating14" name="Question 3" value="4">
+                    <label for="rating14"></label>
+                    <input type="radio" id="rating15" name="Question 3" value="5">
+                    <label for="rating15"></label>
+                </div>
+
+
+                    <div class="submit-button">
+                        <button type="submit">Submit</button>
+                    </div>
+            </form>
+        </div>
+
+        <!-- Add the Export CSV button below the form -->
+        <div>
+            <a href="/export" class="btn btn-primary">Export CSV</a>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
