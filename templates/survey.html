@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <title>Miami Realtors Survey Form</title>
     <style>
+
+        p {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            font-family: 'Roboto', sans-serif;
+        }
+
         body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
             text-align: center;
             background-color: #93a2be; /* Set the background color for the sides */
             margin: 0;
@@ -11,11 +24,10 @@
         }
 
         .container {
-            max-width: 500px; /* Adjust as needed */
+            max-width: 60vw; /* Adjust as needed */
             margin: 0 auto;
-            padding: 20px;
             background-color: #fff; /* Set the background color for the centered content */
-            height: 95vh; /* Set the container height to 100% of the viewport height */
+            height: 100vh; /* Set the container height to 100% of the viewport height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -28,8 +40,12 @@
         }
 
         .survey-form {
-            display: inline-block;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .submit-button {
@@ -84,6 +100,20 @@
 
         .star-rating input[type="radio"]:checked ~ label ~ label:before {
             content: "\2606";
+        }
+
+        @media (max-width: 500px) {
+            body {
+              font-size: 14px;
+            }
+
+            .survey-form {
+              padding: 10px;
+            }
+
+            .container {
+                max-width: 100vw;
+            }
         }
     </style>
     <script>
