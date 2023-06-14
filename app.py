@@ -3,7 +3,7 @@ import csv
 import os
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -32,9 +32,11 @@ def survey():
 
 def write_to_csv(answers):
     fieldnames = ['presentation', 'Question 1', 'Question 2', 'Question 3']
-    file_exists = os.path.isfile('survey_responses.csv')
+    static_dir = os.path.join(os.getcwd(), 'static')
+    file_path = os.path.join(static_dir, 'responses.csv')
+    file_exists = os.path.isfile(file_path)
 
-    with open('survey_responses.csv', 'a', newline='') as file:
+    with open(file_path, 'a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
 
         if not file_exists:
@@ -45,9 +47,9 @@ def write_to_csv(answers):
 
 @app.route('/export', methods=['GET'])
 def export_csv():
-    with open('survey_responses.csv', 'r') as file:
+    with open('responses.csv', 'r') as file:
         response = make_response(file.read())
-        response.headers.set('Content-Disposition', 'attachment', filename='survey_responses.csv')
+        response.headers.set('Content-Disposition', 'attachment', filename='responses.csv')
         response.headers.set('Content-Type', 'text/csv')
         return response
 
