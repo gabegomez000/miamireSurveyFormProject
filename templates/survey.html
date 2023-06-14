@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.11.0/css/mdb.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="path/to/material-bootstrap.min.css" rel="stylesheet">
+        <script src="path/to/material-bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.11.0/js/mdb.min.js"></script>
+
         <title>Miami Realtors Survey Form</title>
         <style>
 
             p {
                 font-family: 'Roboto', sans-serif;
+                font-size: 1.2em; /* Adjust as needed */
+                line-height: 1.5;
             }
 
             h1 {
@@ -14,9 +21,16 @@
                 margin: 0;
             }
 
+            hr {
+                border-style: dashed; /* Change to dashed, dotted, double, etc. */
+                border-width: 5px; /* Change to the desired thickness */
+                margin: 20px;
+            }
+
+
             body {
                 font-size: 20px;
-                line-height: 1.5;
+                line-height: 3.0;
                 text-align: center;
                 background-color: #93a2be; /* Set the background color for the sides */
                 height: 100%;
@@ -25,35 +39,29 @@
             }
 
             .container {
-                max-width: 60vw; /* Adjust as needed */
+                min-height: 100vh;
                 margin: 0 auto;
                 background-color: #fff; /* Set the background color for the centered content */
-                min-height: 100vh; /* Set the container height to 100% of the viewport height */
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
             }
 
-            .container .content {
+            .container .survey-form {
               flex-grow: 1;
             }
 
             .header {
                 text-align: center; /* Center the image horizontally */
+                display: inline-block; /* Change the image display to inline-block */
+                width: 60%;
             }
 
             .survey-form {
                 display: flex;
                 flex-direction: column;
                 flex-grow: 1;
+                justify-content: center;
                 align-items: center;
-                max-width: 600px;
+                max-width: 60%;
                 margin: 0 auto;
-            }
-
-            .submit-button {
-                margin-top: 20px;
             }
 
             .error-message {
@@ -61,24 +69,13 @@
                 font-size: 20px;
             }
 
-            .submit-button button {
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                margin-bottom: 20px;
-                font-size: 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-
-            .submit-button button:hover {
-                background-color: #45a049;
-            }
-
-             .thank-you-message {
+            .thank-you-message {
                 text-align: center;
                 font-size: 30px;
+            }
+
+            .submit-container {
+                margin-bottom: 50px;
             }
 
             /* Custom styling for star-shaped radio buttons */
@@ -94,7 +91,7 @@
 
             .star-rating label:before {
                 content: "\2606";
-                font-size: 50px;
+                font-size: 2.5rem;
                 margin-right: 5px;
             }
 
@@ -108,7 +105,7 @@
 
             @media (max-width: 768px) {
                 .container {
-                    max-width: 70%;
+                    max-width: 90%;
                 }
                 .survey-form {
                     font-size: 28px;
@@ -126,12 +123,13 @@
 
             @media (min-width: 1201px) {
                 .container {
-                    max-width: 90%;
+                    max-width: 70%;
                 }
                 .survey-form {
                     font-size: 40px;
                 }
             }
+
         </style>
         <script> // Script for dynamically changing star symbols based on selection
             window.addEventListener("DOMContentLoaded", function() {
@@ -178,9 +176,7 @@
             {% endif %}
 
             <div class="header">
-                <img src="static/images/miamirelogo.png" alt="Header Image"
-                     style="width: 300px; height: auto;">
-                <h1>Survey Form</h1>
+                <img src="static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
             </div>
 
             <div class="survey-form">
@@ -188,6 +184,7 @@
                     <!-- Hidden Field for Presentation ID -->
                     <input type="hidden" name="presentation" value="{{ presentation_id }}">
                     <!-- Question 1 with star-shaped radio buttons for rating -->
+                    <hr>
                     <div class="star-rating">
                         <p>Rate our service:</p>
                         <input type="radio" id="rating1" name="Question 1" value="1">
@@ -230,9 +227,9 @@
                         <label for="rating15"></label>
                     </div>
 
-                        <div class="submit-button">
-                            <button type="submit">Submit</button>
-                        </div>
+                    <div class="submit-container">
+                        <button type="button" class="btn btn-success btn-lg btn-rounded mb-4 mb-md-0">Submit</button>
+                    </div>
                 </form>
             </div>
 
