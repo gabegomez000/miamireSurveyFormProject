@@ -13,6 +13,7 @@ def survey():
         question1 = request.form.get('Question 1')
         question2 = request.form.get('Question 2')
         question3 = request.form.get('Question 3')
+        presentation_id = request.form.get('presentation')
 
         if question1 and question2 and question3:
             answers = request.form.to_dict()  # Answers = form answers
@@ -24,11 +25,12 @@ def survey():
             return render_template('survey.html', error_message=error_message)
 
     # If form has not been submitted yet, display the form to the user
-    return render_template('survey.html')
+    presentation_id = request.args.get('regid')
+    return render_template('survey.html', presentation_id=presentation_id)
 
 
 def write_to_csv(answers):
-    fieldnames = ['Question 1', 'Question 2', 'Question 3']
+    fieldnames = ['presentation', 'Question 1', 'Question 2', 'Question 3']
     file_exists = os.path.isfile('survey_responses.csv')
 
     with open('survey_responses.csv', 'a', newline='') as file:
