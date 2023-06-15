@@ -1,6 +1,7 @@
 # Custom Stuff
 .idea/
-survey_responses.csv
+responses.csv
+static/responses.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -11,10 +11,10 @@ def survey():
     # Check if the form has been submitted
 
     if request.method == 'POST':
-        question1 = request.form.get('Question 1')
-        question2 = request.form.get('Question 2')
-        question3 = request.form.get('Question 3')
-        identifier = request.form.get('Identifier')
+        question1 = request.form.get('question1')
+        question2 = request.form.get('question2')
+        question3 = request.form.get('question3')
+        identifier = request.form.get('identifier')
 
         if question1 and question2 and question3:
             answers = request.form.to_dict()  # Answers = form answers
@@ -31,7 +31,7 @@ def survey():
 
 
 def write_to_csv(answers):
-    fieldnames = ['identifier', 'Question 1', 'Question 2', 'Question 3']
+    fieldnames = ['identifier', 'question1', 'question2', 'question3']
     static_dir = os.path.join(os.getcwd(), 'static')
     file_path = os.path.join(static_dir, 'responses.csv')
     file_exists = os.path.isfile(file_path)
