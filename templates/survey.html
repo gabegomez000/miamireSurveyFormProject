@@ -27,12 +27,11 @@
                 margin: 20px;
             }
 
-
             body {
                 font-size: 20px;
                 line-height: 3.0;
                 text-align: center;
-                background-color: #93a2be; /* Set the background color for the sides */
+                background-color: #113e70; /* Set the background color for the sides */
                 height: 100%;
                 margin: 0;
                 padding: 0;
@@ -72,6 +71,15 @@
             .thank-you-message {
                 text-align: center;
                 font-size: 30px;
+            }
+
+            .error-container {
+                background-color: #ffcccc;
+                color: #ff0000;
+                padding: 10px;
+                border: 1px solid #ff0000;
+                border-radius: 5px;
+                margin-bottom: 10px;
             }
 
             .submit-container {
@@ -170,7 +178,7 @@
         {% else %}
         <div class="container">
             {% if error_message %}
-            <div class="error-message">
+            <div class="error-message error-container">
                 <b>Please answer all questions.</b>
             </div>
             {% endif %}
@@ -232,7 +240,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
         {% endif %}
     </body>
