@@ -6,6 +6,7 @@
         <link href="path/to/material-bootstrap.min.css" rel="stylesheet">
         <script src="path/to/material-bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.11.0/js/mdb.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Miami Realtors Survey Form</title>
         <style>
@@ -28,14 +29,13 @@
             }
 
             body {
-                font-size: 20px;
-                line-height: 3.0;
                 text-align: center;
-                background-color: #113e70; /* Set the background color for the sides */
+                background-color: #113e70;
                 height: 100%;
                 margin: 0;
                 padding: 0;
             }
+
 
             .container {
                 min-height: 100vh;
@@ -59,7 +59,7 @@
                 flex-grow: 1;
                 justify-content: center;
                 align-items: center;
-                max-width: 60%;
+                max-width: 100%;
                 margin: 0 auto;
             }
 
@@ -111,32 +111,56 @@
                 content: "\2606";
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: 576px) {
                 .container {
                     max-width: 90%;
                 }
                 .survey-form {
-                    font-size: 28px;
+                    font-size: 20px;
+                    padding: 0 15px;
                 }
             }
 
-            @media (min-width: 769px) and (max-width: 1200px) {
+            @media (min-width: 577px) and (max-width: 768px) {
+                .container {
+                    max-width: 90%;
+                }
+                .survey-form {
+                    font-size: 24px;
+                    padding: 0 15px;
+                }
+            }
+
+            @media (min-width: 769px) and (max-width: 992px) {
                 .container {
                     max-width: 80%;
                 }
                 .survey-form {
-                    font-size: 34px;
+                    font-size: 28px;
+                    padding: 0 30px;
+                }
+            }
+
+            @media (min-width: 993px) and (max-width: 1200px) {
+                .container {
+                    max-width: 70%;
+                }
+                .survey-form {
+                    font-size: 32px;
+                    padding: 0 40px;
                 }
             }
 
             @media (min-width: 1201px) {
                 .container {
-                    max-width: 70%;
+                    max-width: 60%;
                 }
                 .survey-form {
-                    font-size: 40px;
+                    font-size: 36px;
+                    padding: 0 50px;
                 }
             }
+
 
         </style>
         <script> // Script for dynamically changing star symbols based on selection
