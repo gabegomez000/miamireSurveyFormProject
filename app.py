@@ -14,7 +14,6 @@ def survey():
         question1 = request.form.get('question1')
         question2 = request.form.get('question2')
         question3 = request.form.get('question3')
-        identifier = request.form.get('identifier')
 
         if question1 and question2 and question3:
             answers = request.form.to_dict()  # Answers = form answers

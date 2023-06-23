@@ -1,4 +1,12 @@
 {
+  "name": "MiamireSurveyForm",
+  "version": "1.0.0",
+  "description": "A survey form that asks the user questions about the presentation/class they were in, and saves the responses to a .csv file.",
+  "main": "app.py",
+  "scripts": {
+    "start": "python app.py",
+    "build": "python -m pip install -r requirements.txt"
+  },
   "dependencies": {
     "mdb-ui-kit": "^6.4.0"
   }
