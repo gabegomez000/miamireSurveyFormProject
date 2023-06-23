@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, send_from_directory
 import csv
 import os
 
@@ -46,11 +46,13 @@ def write_to_csv(answers):
 
 @app.route('/export', methods=['GET'])
 def export_csv():
-    with open('responses.csv', 'r') as file:
-        response = make_response(file.read())
-        response.headers.set('Content-Disposition', 'attachment', filename='responses.csv')
-        response.headers.set('Content-Type', 'text/csv')
-        return response
+    static_folder = app.root_path + '/static'
+    file_path = os.path.join(static_folder, 'responses.csv')
+
+    if os.path.exists(file_path):
+        return send_from_directory(static_folder, 'responses.csv', as_attachment=True)
+    else:
+        return "CSV file not found"
 
 
 if __name__ == '__main__':
