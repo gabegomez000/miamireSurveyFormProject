@@ -1,0 +1,194 @@
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em; /* Adjust as needed */
+    line-height: 1.5;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.hr-top {
+    border-width: 10px; /* Change to the desired thickness */
+    margin: 20px;
+}
+
+.hr-form {
+    border-width: 5px;
+    margin: 25px;
+}
+
+body {
+    text-align: center;
+    background-color: #113e70;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: #fff; /* Set the background color for the centered content */
+}
+
+.container .survey-form {
+    flex-grow: 1;
+}
+
+.header {
+    text-align: center; /* Center the image horizontally */
+    display: inline-block; /* Change the image display to inline-block */
+    width: 60%;
+}
+
+.survey-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.error-message {
+    color: red;
+    font-size: 20px;
+}
+
+.thank-you-message {
+    text-align: center;
+    font-size: 30px;
+}
+
+.error-container {
+    background-color: #ffcccc;
+    color: #ff0000;
+    padding: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.question-container {
+    margin-bottom: 10px;
+}
+
+.radio-button {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Add this line to center the items horizontally */
+    margin-bottom: 10px;
+}
+
+.radio-button input[type="radio"] {
+    margin-right: 5px;
+}
+
+.radio-button label {
+    font-weight: normal;
+}
+
+.radio-button-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-button-group input[type="radio"] {
+    display: none;
+}
+
+.radio-button-group label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.radio-button-group input[type="radio"]:checked + label {
+    background-color: #007bff;
+}
+
+.submit-container {
+    margin: 50px;
+}
+
+/* Custom styling for star-shaped radio buttons */
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    display: inline-block;
+    font-size: 0;
+    cursor: pointer;
+}
+
+.star-rating label:before {
+    content: "\2606";
+    font-size: 2.5rem;
+    margin-right: 5px;
+}
+
+.star-rating input[type="radio"]:checked ~ label:before {
+    content: "\2605";
+}
+
+.star-rating input[type="radio"]:checked ~ label ~ label:before {
+    content: "\2606";
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 90%;
+    }
+    .survey-form {
+        font-size: 20px;
+        padding: 0 15px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+    .survey-form {
+        font-size: 24px;
+        padding: 0 15px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .container {
+        max-width: 80%;
+    }
+    .survey-form {
+        font-size: 28px;
+        padding: 0 30px;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .container {
+        max-width: 70%;
+    }
+    .survey-form {
+        font-size: 32px;
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 1201px) {
+    .container {
+        max-width: 60%;
+    }
+    .survey-form {
+        font-size: 36px;
+        padding: 0 50px;
+    }
+}

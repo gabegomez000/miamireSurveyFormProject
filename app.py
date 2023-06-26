@@ -14,8 +14,11 @@ def survey():
         question1 = request.form.get('question1')
         question2 = request.form.get('question2')
         question3 = request.form.get('question3')
+        question4 = request.form.get('question4')
+        question5 = request.form.get('question5')
+        question6 = request.form.get('question6')
 
-        if question1 and question2 and question3:
+        if question1 and question2 and question3 and question4 and question5 and question6:
             answers = request.form.to_dict()  # Answers = form answers
             write_to_csv(answers) # Write Answers to csv file
             submitted = True # Set submitted to True
@@ -30,7 +33,8 @@ def survey():
 
 
 def write_to_csv(answers):
-    fieldnames = ['identifier', 'question1', 'question2', 'question3']
+    fieldnames = ['identifier', 'date', 'time',
+                  'question1', 'question2', 'question3', 'question4', 'question5', 'question6']
     static_dir = os.path.join(os.getcwd(), 'static')
     file_path = os.path.join(static_dir, 'responses.csv')
     file_exists = os.path.isfile(file_path)
