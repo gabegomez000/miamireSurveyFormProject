@@ -20,8 +20,8 @@ def survey():
 
         if question1 and question2 and question3 and question4 and question5 and question6:
             answers = request.form.to_dict()  # Answers = form answers
-            write_to_csv(answers) # Write Answers to csv file
-            submitted = True # Set submitted to True
+            write_to_csv(answers)  # Write Answers to csv file
+            submitted = True  # Set submitted to True
             return render_template('survey.html', submitted=submitted) # Return submitted screen
         else:
             error_message = 'Please answer all questions.'
@@ -60,4 +60,4 @@ def export_csv():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

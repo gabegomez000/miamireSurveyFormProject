@@ -19,153 +19,153 @@
                  <p>Redirecting...</p>
             </div>
             <script>
-                // Redirect after 3 seconds
+                // Redirect after 5 seconds
                 setTimeout(function() {
                   window.location.href = 'https://www.miamirealtors.com/'; // Replace with desired URL
                 }, 5000); // 5000 milliseconds = 5 seconds
             </script>
-
         {% else %}
-        <div class="container">
-            {% if error_message %}
-            <div class="error-message error-container">
-                <b>Please answer all questions.</b>
-            </div>
-            {% endif %}
+            <div class="container">
+                {% if error_message %}
+                <div class="error-message error-container">
+                    <b>Please answer all questions.</b>
+                </div>
+                {% endif %}
 
-            <div class="header">
-                <img src="static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
-            </div>
-            <div class="survey-form">
-                <form action="/" method="post">
-                    <!-- Hidden Field for identifier -->
-                    <input type="hidden" name="identifier" value="{{ identifier }}">
+                <div class="header">
+                    <img src="static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
+                </div>
+                <div class="survey-form">
+                    <form action="/" method="post">
+                        <!-- Hidden Field for identifier -->
+                        <input type="hidden" name="identifier" value="{{ identifier }}">
 
-                    <!-- Hidden Field for date -->
-                    <input type="hidden" name="date" id="date" value="">
+                        <!-- Hidden Field for date -->
+                        <input type="hidden" name="date" id="date" value="">
 
-                    <!-- Hidden Field for time -->
-                    <input type="hidden" name="time" id="time" value="">
+                        <!-- Hidden Field for time -->
+                        <input type="hidden" name="time" id="time" value="">
 
-                    <!-- Example Questions with star-shaped radio buttons for rating -->
-                    <hr class="hr-top">
-                    <div class="star-rating">
-                        <p>Rate our service:</p>
-                        <input type="radio" id="q1rating1" name="question1" value="1">
-                        <label for="q1rating1"></label>
-                        <input type="radio" id="q1rating2" name="question1" value="2">
-                        <label for="q1rating2"></label>
-                        <input type="radio" id="q1rating3" name="question1" value="3">
-                        <label for="q1rating3"></label>
-                        <input type="radio" id="q1rating4" name="question1" value="4">
-                        <label for="q1rating4"></label>
-                        <input type="radio" id="q1rating5" name="question1" value="5">
-                        <label for="q1rating5"></label>
-                    </div>
-                    <hr class ="hr-form">
+                        <!-- Example Questions with star-shaped radio buttons for rating -->
+                        <hr class="hr-top">
+                        <div class="star-rating">
+                            <p class="question">Rate our service:</p>
+                            <input type="radio" id="q1rating1" name="question1" value="1">
+                            <label for="q1rating1"></label>
+                            <input type="radio" id="q1rating2" name="question1" value="2">
+                            <label for="q1rating2"></label>
+                            <input type="radio" id="q1rating3" name="question1" value="3">
+                            <label for="q1rating3"></label>
+                            <input type="radio" id="q1rating4" name="question1" value="4">
+                            <label for="q1rating4"></label>
+                            <input type="radio" id="q1rating5" name="question1" value="5">
+                            <label for="q1rating5"></label>
+                        </div>
+                        <hr class ="hr-form">
 
-                    <!-- Add more questions and input fields as needed -->
-                    <div class="star-rating">
-                        <p>Rate the presenter:</p>
-                        <input type="radio" id="q2rating1" name="question2" value="1">
-                        <label for="q2rating1"></label>
-                        <input type="radio" id="q2rating2" name="question2" value="2">
-                        <label for="q2rating2"></label>
-                        <input type="radio" id="q2rating3" name="question2" value="3">
-                        <label for="q2rating3"></label>
-                        <input type="radio" id="q2rating4" name="question2" value="4">
-                        <label for="q2rating4"></label>
-                        <input type="radio" id="q2rating5" name="question2" value="5">
-                        <label for="q2rating5"></label>
-                    </div>
-                    <hr class ="hr-form">
+                        <!-- Add more questions and input fields as needed -->
+                        <div class="star-rating">
+                            <p class="question">Rate the presenter:</p>
+                            <input type="radio" id="q2rating1" name="question2" value="1">
+                            <label for="q2rating1"></label>
+                            <input type="radio" id="q2rating2" name="question2" value="2">
+                            <label for="q2rating2"></label>
+                            <input type="radio" id="q2rating3" name="question2" value="3">
+                            <label for="q2rating3"></label>
+                            <input type="radio" id="q2rating4" name="question2" value="4">
+                            <label for="q2rating4"></label>
+                            <input type="radio" id="q2rating5" name="question2" value="5">
+                            <label for="q2rating5"></label>
+                        </div>
+                        <hr class ="hr-form">
 
-                    <div class="star-rating">
-                        <p>Rate the quality of the presentation:</p>
-                        <input type="radio" id="q3rating1" name="question3" value="1">
-                        <label for="q3rating1"></label>
-                        <input type="radio" id="q3rating2" name="question3" value="2">
-                        <label for="q3rating2"></label>
-                        <input type="radio" id="q3rating3" name="question3" value="3">
-                        <label for="q3rating3"></label>
-                        <input type="radio" id="q3rating4" name="question3" value="4">
-                        <label for="q3rating4"></label>
-                        <input type="radio" id="q3rating5" name="question3" value="5">
-                        <label for="q3rating5"></label>
-                    </div>
-                    <hr class ="hr-form">
+                        <div class="star-rating">
+                            <p class="question">Rate the quality of the presentation:</p>
+                            <input type="radio" id="q3rating1" name="question3" value="1">
+                            <label for="q3rating1"></label>
+                            <input type="radio" id="q3rating2" name="question3" value="2">
+                            <label for="q3rating2"></label>
+                            <input type="radio" id="q3rating3" name="question3" value="3">
+                            <label for="q3rating3"></label>
+                            <input type="radio" id="q3rating4" name="question3" value="4">
+                            <label for="q3rating4"></label>
+                            <input type="radio" id="q3rating5" name="question3" value="5">
+                            <label for="q3rating5"></label>
+                        </div>
+                        <hr class ="hr-form">
 
-                    <!-- Example Question with yes/no options -->
-                    <div>
-                        <p>Were you satisfied with today's presentation?</p>
+                        <!-- Example Question with yes/no options -->
                         <div>
-                            <div class="radio-button">
-                                <input type="radio" id="q4-yes" name="question4" value="yes">
-                                <label for="q4-yes">Yes</label>
-                            </div>
-                            <div class="radio-button">
-                                <input type="radio" id="q4-no" name="question4" value="no">
-                                <label for="q4-no">No</label>
+                            <p class="question">Were you satisfied with today's presentation?</p>
+                            <div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q4-yes" name="question4" value="yes">
+                                    <label for="q4-yes">Yes</label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q4-no" name="question4" value="no">
+                                    <label for="q4-no">No</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr class ="hr-form">
+                        <hr class ="hr-form">
 
-                    <!-- Example Question with multiple choice options -->
-                    <div>
-                        <p>What is your favorite color?</p>
+                        <!-- Example Question with multiple choice options -->
                         <div>
-                            <div class="radio-button">
-                                <input type="radio" id="q5red" name="question5" value="red">
-                                <label for="q5red">Red</label>
-                            </div>
-                            <div class="radio-button">
-                                <input type="radio" id="q5blue" name="question5" value="blue">
-                                <label for="q5blue">Blue</label>
-                            </div>
-                            <div class="radio-button">
-                                <input type="radio" id="q5green" name="question5" value="green">
-                                <label for="q5green">Green</label>
+                            <p class="question">What is your favorite color?</p>
+                            <div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q5red" name="question5" value="red">
+                                    <label for="q5red">Red</label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q5blue" name="question5" value="blue">
+                                    <label for="q5blue">Blue</label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q5green" name="question5" value="green">
+                                    <label for="q5green">Green</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr class ="hr-form">
+                        <hr class ="hr-form">
 
-                    <!-- Example Question with text input -->
-                    <div>
-                        <p>Additional Comments:</p>
+                        <!-- Example Question with text input -->
                         <div>
-                            <label for="question6"></label>
-                            <input type="text" id="question6" name="question6">
+                            <p class="question">Additional Comments:</p>
+                            <div>
+                                <label for="question6"></label>
+                                <textarea id="question6" name="question6"
+                                          style="font-size: 14px; width: 80%; height: 100px"></textarea>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Submit Button -->
-                    <div class="submit-container">
-                        <button type="submit" class="btn btn-success btn-lg btn-rounded mb-4 mb-md-0">Submit</button>
-                    </div>
+                        <!-- Submit Button -->
+                        <div class="submit-container">
+                            <button type="submit" class="btn btn-success btn-lg btn-rounded mb-4 mb-md-0">Submit</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
         {% endif %}
 
-    <script>
-        // Function to get the current date and time
-        function getCurrentDateTime() {
-            var now = new Date();
-            var date = now.toISOString().slice(0, 10); // Get the date in YYYY-MM-DD format
-            var time = now.toTimeString().slice(0, 8); // Get the time in HH:MM:SS format
-            return { date: date, time: time };
-        }
+        <script>
+            // Function to get the current date and time
+            function getCurrentDateTime() {
+                const now = new Date();
+                const date = now.toISOString().slice(0, 10); // Get the date in YYYY-MM-DD format
+                const time = now.toTimeString().slice(0, 8); // Get the time in HH:MM:SS format
+                return { date: date, time: time };
+            }
 
-        // Populate the hidden fields with the current date and time
-        window.addEventListener("DOMContentLoaded", function() {
-            var dateTime = getCurrentDateTime();
-            document.getElementById("date").value = dateTime.date;
-            document.getElementById("time").value = dateTime.time;
-        });
-    </script>
+            // Populate the hidden fields with the current date and time
+            window.addEventListener("DOMContentLoaded", function() {
+                const dateTime = getCurrentDateTime();
+                document.getElementById("date").value = dateTime.date;
+                document.getElementById("time").value = dateTime.time;
+            });
+        </script>
 
     </body>
 </html>
