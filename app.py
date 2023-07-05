@@ -11,21 +11,19 @@ def survey():
     # Check if the form has been submitted
 
     if request.method == 'POST':
-        question1 = request.form.get('question1')
-        question2 = request.form.get('question2')
-        question3 = request.form.get('question3')
-        question4 = request.form.get('question4')
-        question5 = request.form.get('question5')
-        question6 = request.form.get('question6')
+        questions = ['question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7',
+                     'question8', 'question9', 'question10', 'question11', 'question12']
 
-        if question1 and question2 and question3 and question4 and question5 and question6:
-            answers = request.form.to_dict()  # Answers = form answers
-            write_to_csv(answers)  # Write Answers to csv file
-            submitted = True  # Set submitted to True
-            return render_template('survey.html', submitted=submitted) # Return submitted screen
-        else:
-            error_message = 'Please answer all questions.'
-            return render_template('survey.html', error_message=error_message)
+        for question in questions:
+            answer = request.form.get(question)
+            if not answer:
+                error_message = 'Please answer all questions.'
+                return render_template('survey.html', error_message=error_message, **request.form)
+
+        answers = request.form.to_dict()  # Answers = form answers
+        write_to_csv(answers)
+        submitted = True
+        return render_template('survey.html', submitted=submitted, **answers)
 
     # If form has not been submitted yet, display the form to the user
     identifier = request.args.get('regid')
@@ -33,8 +31,9 @@ def survey():
 
 
 def write_to_csv(answers):
-    fieldnames = ['identifier', 'date', 'time',
-                  'question1', 'question2', 'question3', 'question4', 'question5', 'question6']
+    fieldnames = ['identifier', 'date', 'time', 'agreement',
+                  'question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7',
+                  'question8', 'question9', 'question10', 'question11', 'question12']
     static_dir = os.path.join(os.getcwd(), 'static')
     file_path = os.path.join(static_dir, 'responses.csv')
     file_exists = os.path.isfile(file_path)
@@ -60,4 +59,4 @@ def export_csv():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
