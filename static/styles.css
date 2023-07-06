@@ -1,6 +1,6 @@
 p {
     font-family: 'Roboto', sans-serif;
-    font-size: 0.8em; /* Adjust as needed */
+    font-size: 0.9em; /* Adjust as needed */
     line-height: 1.5;
 }
 
@@ -11,12 +11,14 @@ h1 {
 
 .hr-top {
     border-width: 10px; /* Change to the desired thickness */
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .hr-form {
     border-width: 5px;
-    margin: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 body {
@@ -78,6 +80,8 @@ input[type="text"] {
 
 .question-container {
     margin-bottom: 10px;
+    justify-content: left;
+    text-align: left;
 }
 
 .radio-button {
