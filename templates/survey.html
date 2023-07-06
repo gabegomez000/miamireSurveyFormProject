@@ -12,16 +12,18 @@
     </head>
     <body>
         {% if submitted %}
-             <div class="container">
-                <div class="thank-you-message">
-                    <b>Thank you for completing the survey!<br></b>
+            <div class="container">
+                <div class="thank-you-container">
+                    <div class="thank-you-message">
+                        <b>Thank you for your attendance and valuable feedback!<br></b>
+                    </div>
+                    <p>Now redirecting...</p>
                 </div>
-                 <p>Redirecting...</p>
             </div>
             <script>
                 // Redirect after 5 seconds
                 setTimeout(function() {
-                  window.location.href = 'https://www.miamirealtors.com/'; // Replace with desired URL
+                    window.location.href = 'https://www.miamirealtors.com/'; // Replace with desired URL
                 }, 5000); // 5000 milliseconds = 5 seconds
             </script>
         {% else %}

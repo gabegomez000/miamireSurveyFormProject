@@ -36,7 +36,6 @@ input[type="text"] {
 
 .container {
     min-height: 100vh;
-    margin: 0 auto;
     background-color: #fff; /* Set the background color for the centered content */
 }
 
@@ -64,9 +63,17 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.thank-you-message {
+.thank-you-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.thank-you-message {
     font-size: 30px;
+    margin-bottom: 10px;
 }
 
 .error-container {
