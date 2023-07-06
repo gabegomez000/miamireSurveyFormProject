@@ -20,7 +20,16 @@ def survey():
                 error_message = 'Please answer all questions.'
                 return render_template('survey.html', error_message=error_message, **request.form)
 
-        answers = request.form.to_dict()  # Answers = form answers
+        # Modify the response for the "agreement" parameter
+        agreement = request.form.get('agreement')
+        if agreement == 'on':
+            agreement = 'agreed'
+        else:
+            agreement = 'refused'
+
+        # Update the answers dictionary with the modified response
+        answers = request.form.to_dict() # Answers = form answers
+        answers['agreement'] = agreement
         write_to_csv(answers)
         submitted = True
         return render_template('survey.html', submitted=submitted, **answers)
