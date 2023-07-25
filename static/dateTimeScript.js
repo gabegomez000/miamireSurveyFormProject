@@ -9,6 +9,6 @@ function getCurrentDateTime() {
 // Populate the hidden fields with the current date and time
 window.addEventListener("DOMContentLoaded", function() {
     const dateTime = getCurrentDateTime();
-    document.getElementById("date").value = dateTime.date;
-    document.getElementById("time").value = dateTime.time;
+    document.getElementById("submissionDate").value = dateTime.date;
+    document.getElementById("submissionTime").value = dateTime.time;
 });

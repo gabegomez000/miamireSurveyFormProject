@@ -11,8 +11,8 @@ def survey():
     # Check if the form has been submitted
 
     if request.method == 'POST':
-        questions = ['question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7',
-                     'question8', 'question9', 'question10', 'question11', 'question12']
+        questions = ['ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6', 'ques_7',
+                     'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
 
         for question in questions:
             answer = request.form.get(question)
@@ -28,7 +28,7 @@ def survey():
             agreement = 'refused'
 
         # Update the answers dictionary with the modified response
-        answers = request.form.to_dict() # Answers = form answers
+        answers = request.form.to_dict()  # Answers = form answers
         answers['agreement'] = agreement
         write_to_csv(answers)
         submitted = True
@@ -40,9 +40,9 @@ def survey():
 
 
 def write_to_csv(answers):
-    fieldnames = ['identifier', 'date', 'time', 'agreement',
-                  'question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7',
-                  'question8', 'question9', 'question10', 'question11', 'question12']
+    fieldnames = ['identifier', 'submissionDate', 'submissionTime', 'agreement', 'fullName',
+                  'ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6', 'ques_7',
+                  'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
     static_dir = os.path.join(os.getcwd(), 'static')
     file_path = os.path.join(static_dir, 'responses.csv')
     file_exists = os.path.isfile(file_path)
