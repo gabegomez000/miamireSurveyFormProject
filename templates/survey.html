@@ -11,6 +11,7 @@
         <script src="/static/listenerScript.js"></script>
     </head>
     <body>
+
         {% if submitted %}
             <div class="container">
                 <div class="thank-you-container">
@@ -41,26 +42,16 @@
                 <h1 class="rounded-box">Course Evaluation Form</h1>
                 <div class="survey-form">
                     <form action="/" method="post">
-                        <!-- Hidden Field for identifier -->
-                        <input type="hidden" name="identifier" value="{{ identifier }}">
-
                         <!-- Hidden Field for date -->
                         <input type="hidden" name="submissionDate" id="submissionDate" value="">
-
-                        <!-- Hidden Field for time -->
-                        <input type="hidden" name="submissionTime" id="submissionTime" value="">
-
-                        <hr class="hr-top">
-                        <label for="nameField">Full Name:</label><br>
-                        <input type="text" id="nameField" name="fullName"><br>
+                        <input type="hidden" name="regid" id="regid" value="">
 
                         <hr class="hr-top">
                         <h2>A. Course Evaluation</h2>
                         <hr class="hr-top">
 
                         <div class="star-rating">
-                            <p class="question-container">1. Instructions regarding the rules on attendance, break, etc. were
-                                clearly stated at the beginning of the course.</p>
+                            <p class="question-container">1. Instructions regarding the rules on attendance, break, etc. were clearly stated at the beginning of the course.</p>
                             <input type="radio" id="q1rating1" name="ques_1" value="1" {% if ques_1 == '1' %}checked{% endif %}>
                             <label for="q1rating1"></label>
                             <input type="radio" id="q1rating2" name="ques_1" value="2" {% if ques_1 == '2' %}checked{% endif %}>
@@ -118,14 +109,14 @@
                         <hr class ="hr-form">
 
                         <div>
-                            <p class="question-container">4. Did the course require more time than given?</p>
+                            <p class="question-container">4. Did the course finish on time?</p>
                             <div>
                                 <div class="radio-button">
-                                    <input type="radio" id="q4-yes" name="ques_4" value="1" {% if ques_4 == '1' %}checked{% endif %}>
+                                    <input type="radio" id="q4-yes" name="ques_4" value="5" {% if ques_4 == '5' %}checked{% endif %}>
                                     <label for="q4-yes">Yes</label>
                                 </div>
                                 <div class="radio-button">
-                                    <input type="radio" id="q4-no" name="ques_4" value="5" {% if ques_4 == '5' %}checked{% endif %}>
+                                    <input type="radio" id="q4-no" name="ques_4" value="1" {% if ques_4 == '1' %}checked{% endif %}>
                                     <label for="q4-no">No</label>
                                 </div>
                             </div>
@@ -195,18 +186,17 @@
 
                         <hr class ="hr-form">
 
-                        <p class="question-container">8. Was the instructor completely neutral about his/her affiliation
-                        with a company, proprietary school, etc.?</p>
-                        <div>
-                            <div class="radio-button">
-                                <input type="radio" id="q8-yes" name="ques_8" value="5" {% if ques_8 == '5' %}checked{% endif %}>
-                                <label for="q8-yes">Yes</label>
+                        <p class="question-container">8. Was the instructor completely neutral about his/her affiliation with a company, proprietary school, etc.?</p>
+                            <div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q8-yes" name="ques_8" value="5" {% if ques_8 == '5' %}checked{% endif %}>
+                                    <label for="q8-yes">Yes</label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q8-no" name="ques_8" value="1" {% if ques_8 == '1' %}checked{% endif %}>
+                                    <label for="q8-no">No</label>
+                                </div>
                             </div>
-                            <div class="radio-button">
-                                <input type="radio" id="q8-no" name="ques_8" value="1" {% if ques_8 == '1' %}checked{% endif %}>
-                                <label for="q8-no">No</label>
-                            </div>
-                        </div>
                         {% if error_message and not q8 %}
                             <p class="error-message error-container">{{ error_message }}</p>
                         {% endif %}
@@ -233,8 +223,7 @@
                         <hr class="hr-top">
 
                         <div>
-                            <p class="question-container">10. Would you recommend this course to a person considering this program?
-                            Please explain why.</p>
+                            <p class="question-container">10. Would you recommend this course to a person considering this program? Please explain why.</p>
                             <div>
                                 <label for="ques_10"></label>
                                 <textarea id="ques_10" name="ques_10"
@@ -248,12 +237,11 @@
                         <hr class ="hr-form">
 
                         <div>
-                            <p class="question-container">11. What is the most important thing you will utilize from this class?
-                            Please explain why.</p>
+                            <p class="question-container">11. What is the most important thing you will utilize from this class? Please explain why.</p>
                             <div>
                                 <label for="ques_11"></label>
                                 <textarea id="ques_11" name="ques_11"
-                                          style="font-size: 14px; width: 80%; height: 100px">{{ q11 }}</textarea>
+                                          style="font-size: 14px; width: 80%; height: 100px">{{ ques_11 }}</textarea>
                             </div>
                         </div>
                         {% if error_message and not ques_11 %}
@@ -295,7 +283,7 @@
             </div>
         {% endif %}
 
-        <script src="/static/dateTimeScript.js"></script>
+        <script src="/static/dateScript.js"></script>
 
     </body>
 </html>
