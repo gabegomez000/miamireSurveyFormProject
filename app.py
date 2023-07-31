@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request
 import requests
+import datetime
 import json
 import os
 from dotenv import load_dotenv
 from questions import question_list
 
-load_dotenv()
+load_dotenv()  # Loads .env file
 
-api_url = os.getenv('API_URL')
-api_key = os.getenv('API_KEY')
+api_url = os.getenv('API_URL')  # Loads API_URL from .env
+api_key = os.getenv('API_KEY')  # Loads API_KEY from .env
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -19,7 +20,7 @@ def survey():
     if request.method == 'POST':
         surveyQuestions = ['ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6',
                            'ques_7', 'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
-        questionTotal = 0
+        questionTotal = 0  # Keeps a tally of the TOTAL question score (Each question is worth 1-5 points)
 
         for question in surveyQuestions:
             answer = request.form.get(question)
@@ -31,63 +32,67 @@ def survey():
                                 'ques_6', 'ques_7', 'ques_8', 'ques_9']:
                     questionTotal += int(answer)
         numQuestions = 8  # Number of questions that are 1-5 rankings (Do not include text response fields)
-        questionAverage = questionTotal / numQuestions
-        print("questionAverage is " + str(questionAverage))
+        questionAverage = questionTotal / numQuestions  # Gets the average from 1-5 (This is the Evaluation Score)
 
         # Modify the response for the "agreement" parameter
-        agreement = request.form.get('agreement')
+        agreement = request.form.get('agreement')  # Retrieves the agreement parameter from the form
         if agreement == 'on':
-            agreement = 'agreed'
+            agreement = 'agreed'  # Changes answer from 'on' to 'agreed' for when the form gets passed to RAMCO
         else:
-            agreement = 'refused'
+            agreement = 'refused'  # Changes answer from 'off' to 'refused' for when the form gets passed to RAMCO
 
         # Update the answers dictionary with the modified response
-        answers = request.form.to_dict()  # Answers = form answers
+        answers = request.form.to_dict()  # Answers = all form answers
 
         answers['agreement'] = agreement
 
-        """write_to_csv(answers)"""
-        push_eval_to_RAMCO(answers, questionAverage, answers['regid'])
-        submitted = True
+        """write_to_csv(answers)"""  # Leftover code to call scrapped .csv function
+        push_eval_to_RAMCO(answers, questionAverage, answers['regid'])  # Calls the RAMCO push function with parameters
+        submitted = True  # Sets submitted to true (Useful for keeping track if answers need to be saved)
         return render_template('survey.html', submitted=submitted, **answers)
     # If form has not been submitted yet, display the form to the user
-    regid = request.args.get('regid')
-    return render_template('survey.html', regid=regid)
+    regid = request.args.get('regid')  # Retrieves the regid parameter from the URL
+    return render_template('survey.html', regid=regid)  # Displays the form and passes the retrieved regid to the form
 
 
 def push_eval_to_RAMCO(answers, questionAverage, regid):
-    questionAverage = str(questionAverage)
-    api_string = ""
-    index = 0
-    for key, value in answers.items():
-        if key != 'regid':
+    questionAverage = str(questionAverage)  # Converts questionAverage to a string to be saved for the RAMCO response
+    api_string = ""  # Used to store the user's responses that will be passed to RAMCO
+    index = 0  # Index for loop below
+    for key, value in answers.items():  # Used to iterate and add alternating questions and answers for final response
+        if key != 'regid':  # Does not iterate through the regid (it's not a question)
             api_string += f"{question_list[index]['question_text']}"
             index = index + 1
             api_string += f' ({value}) , '
 
-    api_string = api_string[:-2]
-    print("api_string is: " + api_string)
-    print("Guid is: " + regid)
+    api_string = api_string[:-2]  # Trims extra comma and whitespace at the end of the string
 
-    updateEval = {
+    now = datetime.datetime.today()  # Gets current date
+    current_date = now.strftime("%Y-%m-%d")  # Converts current date to string
+
+    """print("api_string is: " + api_string)  # For testing
+    print("Guid is: " + regid)
+    print("Current Date is: " + current_date)"""
+
+    updateEval = {  # Query and query parameters
         'Key': api_key,
         'Operation': 'UpdateEntity',
         'Entity': 'cobalt_classregistration',
         'Guid': regid,
         'AttributeValues': {'ramcosub_evaluationscore=' + questionAverage +
-                            ',ramcosub_evaluation=#' + api_string + '#'}
+                            ',ramcosub_evaluation=#' + api_string + '#' +
+                            ',ramcosub_evaluationdate=' + current_date}
     }
 
-    response = requests.post(api_url, data=updateEval)
+    response = requests.post(api_url, data=updateEval)  # Query
     body = json.loads(response.text)
 
-    print("Response Status Code is: " + str(body["ResponseCode"]))
-    print("Response Text is: " + str(body["ResponseText"]))
-
+    """print("Response Status Code is: " + str(body["ResponseCode"]))  # For Testing
+    print("Response Text is: " + str(body["ResponseText"]))"""
 
 
 """def write_to_csv(answers):
-    fieldnames = ['submissionDate', 'agreement',
+    fieldnames = ['regid', 'agreement',
                   'ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6', 'ques_7',
                   'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
     static_dir = os.path.join(os.getcwd(), 'static')
