@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request
+import datetime
 import requests
 import os
 from dotenv import load_dotenv
-import questions
 from questions import question_list
 
 load_dotenv()
@@ -18,7 +18,7 @@ def survey():
     # Check if the form has been submitted
     if request.method == 'POST':
         surveyQuestions = ['ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6',
-                     'ques_7', 'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
+                           'ques_7', 'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
         questionTotal = 0
 
         for question in surveyQuestions:
@@ -44,10 +44,11 @@ def survey():
         else:
             agreement = 'refused'
 
+        now = datetime.date.today()
         # Update the answers dictionary with the modified response
         answers = request.form.to_dict()  # Answers = form answers
-        print(type(answers))
         answers['agreement'] = agreement
+        answers['submissionDate'] = now.strftime("%Y-%m-%d")
         """write_to_csv(answers)"""
         push_eval_to_RAMCO(answers, questionAverage)
         submitted = True
@@ -85,9 +86,8 @@ def push_eval_to_RAMCO(answers, questionAverage):
     response = requests.post(api_url, data=updateEval)
 
 
-
 """def write_to_csv(answers):
-    fieldnames = ['submissionDate', 'submissionTime', 'agreement',
+    fieldnames = ['submissionDate', 'agreement',
                   'ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6', 'ques_7',
                   'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
     static_dir = os.path.join(os.getcwd(), 'static')
