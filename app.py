@@ -52,7 +52,42 @@ def survey():
         return render_template('survey.html', submitted=submitted, **answers)
     # If form has not been submitted yet, display the form to the user
     regid = request.args.get('regid')  # Retrieves the regid parameter from the URL
-    return render_template('survey.html', regid=regid)  # Displays the form and passes the retrieved regid to the form
+
+    if regid:  # Check if regid was provided, and if so, retrieve course and contact details
+        retrieveCourse = {  # Query and query parameters
+            'Key': api_key,
+            'Operation': 'GetEntity',
+            'Entity': 'cobalt_classregistration',
+            'Guid': regid,
+            'Attributes': {'cobalt_contactid,cobalt_classid,ramcosub_evaluation'}
+            }
+        courseResponse = requests.post(api_url, data=retrieveCourse)  # Query
+        responseJson = json.loads(courseResponse.text)  # Response
+        print(responseJson["ResponseCode"])
+
+        # Check if provided regid was valid
+        if responseJson["ResponseCode"] == 200:
+            courseName = responseJson["Data"]["cobalt_classid"]["Display"]  # Name of course
+            contactOriginal = responseJson["Data"]["cobalt_contactid"]["Display"]  # Name of contact
+            evalExists = responseJson["Data"]["ramcosub_evaluation"]  # Current Evaluation (If empty, returns None)
+
+            # Separate the contact's first name
+            index = contactOriginal.find(',')
+            if index == -1:
+                contactConverted = contactOriginal
+            else:
+                contactConverted = contactOriginal[index + 1:]
+
+            if evalExists is not None:  # If an evaluation already exists in RAMCO for this class registration, display a redirect message
+                return render_template('survey.html', regid=regid, contact=contactConverted, course=courseName, evalCheck=True)
+            else:  # If there is no evaluation yet, proceed with returning the survey form
+                return render_template('survey.html', regid=regid, contact=contactConverted, course=courseName, evalCheck=False)
+        else:
+            # Returns the fallback template for invalid regid; redirects to Miami Realtors website
+            return render_template('survey.html', regid=None)
+    else:
+        # Returns the fallback template for empty regid; redirects to Miami Realtors website
+        return render_template('survey.html', regid=None)
 
 
 def push_eval_to_RAMCO(answers, questionAverage, regid):
@@ -79,16 +114,18 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
         'Operation': 'UpdateEntity',
         'Entity': 'cobalt_classregistration',
         'Guid': regid,
-        'AttributeValues': {'ramcosub_evaluationscore=' + questionAverage +
+        'AttributeValues': {'ramcosub_evaluationscoreavg=' + questionAverage +
                             ',ramcosub_evaluation=#' + api_string + '#' +
                             ',ramcosub_evaluationdate=' + current_date}
     }
 
-    response = requests.post(api_url, data=updateEval)  # Query
-    body = json.loads(response.text)
+    requests.post(api_url, data=updateEval)  # Query
 
-    """print("Response Status Code is: " + str(body["ResponseCode"]))  # For Testing
-    print("Response Text is: " + str(body["ResponseText"]))"""
+    """
+    body = json.loads(response.text)
+    print("Response Status Code is: " + str(body["ResponseCode"]))  # For Testing
+    print("Response Text is: " + str(body["ResponseText"]))
+    """
 
 
 """def write_to_csv(answers):

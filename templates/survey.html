@@ -16,7 +16,7 @@
             <div class="container">
                 <div class="thank-you-container">
                     <div class="thank-you-message">
-                        <b>Thank you for your attendance and valuable feedback!<br></b>
+                        <b>Your feedback was successfully recorded. Thank you for being a valued member!<br></b>
                     </div>
                     <p>Now redirecting...</p>
                 </div>
@@ -28,257 +28,278 @@
                 }, 5000); // 5000 milliseconds = 5 seconds
             </script>
         {% else %}
+            {%  if not regid %}
+                <script>
+                    window.location.href = 'https://www.miamirealtors.com/';
+                </script>
+            {% endif %}
             <div class="container">
-                {% if error_message %}
-                <div class="error-message error-container">
-                    <b>Please answer all questions.</b>
-                </div>
+                {% if evalCheck == True %}
+                    <div class="thank-you-container">
+                        <div class="thank-you-message">
+                            <b>Your feedback for this course has already been recorded. Thank you for being a valued member!<br></b>
+                        </div>
+                        <p>Now redirecting...</p>
+                    </div>
+                    <script>
+                        // Redirect after 5 seconds
+                        setTimeout(function() {
+                            window.location.href = 'https://www.miamirealtors.com/'; // Replace with desired URL
+                        }, 5000); // 5000 milliseconds = 5 seconds
+                    </script>
+                {% else %}
+                    {% if error_message %}
+                    <div class="error-message error-container">
+                        <b>Please answer all questions.</b>
+                    </div>
+                    {% endif %}
+
+                    <div class="header">
+                        <img src="/static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
+                    </div>
+
+                    <h1 class="rounded-box" style="text-decoration:underline">Welcome, {{ contact }}!</h1>
+                    <div class="survey-form">
+                        <form action="/" method="post">
+                            <!-- Hidden Field for regid -->
+                            <input type="hidden" name="regid" id="regid" value = "{{ regid }}">
+                            <br>
+                            <h2 style="font-weight:bold; color:black">Please answer all questions for the following course:</h2>
+                            <h3 class="rounded-box" style="color:white;  background-color: #113E70;">{{ course }}</h3>
+                            <hr class="hr-top">
+                            <h2>A. Course Evaluation</h2>
+                            <hr class="hr-top">
+
+                            <div class="star-rating">
+                                <p class="question-container">1. Instructions regarding the rules on attendance, break, etc. were clearly stated at the beginning of the course.</p>
+                                <input type="radio" id="q1rating1" name="ques_1" value="1" {% if ques_1 == '1' %}checked{% endif %}>
+                                <label for="q1rating1"></label>
+                                <input type="radio" id="q1rating2" name="ques_1" value="2" {% if ques_1 == '2' %}checked{% endif %}>
+                                <label for="q1rating2"></label>
+                                <input type="radio" id="q1rating3" name="ques_1" value="3" {% if ques_1 == '3' %}checked{% endif %}>
+                                <label for="q1rating3"></label>
+                                <input type="radio" id="q1rating4" name="ques_1" value="4" {% if ques_1 == '4' %}checked{% endif %}>
+                                <label for="q1rating4"></label>
+                                <input type="radio" id="q1rating5" name="ques_1" value="5" {% if ques_1 == '5' %}checked{% endif %}>
+                                <label for="q1rating5"></label>
+                            </div>
+                            {% if error_message and not ques_1 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <!-- Add more questions and input fields as needed -->
+                            <div class="star-rating">
+                                <p class="question-container">2. This course met my expectations.</p>
+                                <input type="radio" id="q2rating1" name="ques_2" value="1" {% if ques_2 == '1' %}checked{% endif %}>
+                                <label for="q2rating1"></label>
+                                <input type="radio" id="q2rating2" name="ques_2" value="2" {% if ques_2 == '2' %}checked{% endif %}>
+                                <label for="q2rating2"></label>
+                                <input type="radio" id="q2rating3" name="ques_2" value="3" {% if ques_2 == '3' %}checked{% endif %}>
+                                <label for="q2rating3"></label>
+                                <input type="radio" id="q2rating4" name="ques_2" value="4" {% if ques_2 == '4' %}checked{% endif %}>
+                                <label for="q2rating4"></label>
+                                <input type="radio" id="q2rating5" name="ques_2" value="5" {% if ques_2 == '5' %}checked{% endif %}>
+                                <label for="q2rating5"></label>
+                            </div>
+                            {% if error_message and not ques_2 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div class="star-rating">
+                                <p class="question-container">3. This course fulfilled its stated objectives.</p>
+                                <input type="radio" id="q3rating1" name="ques_3" value="1" {% if ques_3 == '1' %}checked{% endif %}>
+                                <label for="q3rating1"></label>
+                                <input type="radio" id="q3rating2" name="ques_3" value="2" {% if ques_3 == '2' %}checked{% endif %}>
+                                <label for="q3rating2"></label>
+                                <input type="radio" id="q3rating3" name="ques_3" value="3" {% if ques_3 == '3' %}checked{% endif %}>
+                                <label for="q3rating3"></label>
+                                <input type="radio" id="q3rating4" name="ques_3" value="4" {% if q3ues_ == '4' %}checked{% endif %}>
+                                <label for="q3rating4"></label>
+                                <input type="radio" id="q3rating5" name="ques_3" value="5" {% if ques_3 == '5' %}checked{% endif %}>
+                                <label for="q3rating5"></label>
+                            </div>
+                            {% if error_message and not ques_3 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div>
+                                <p class="question-container">4. Did the course finish on time?</p>
+                                <div>
+                                    <div class="radio-button">
+                                        <input type="radio" id="q4-yes" name="ques_4" value="5" {% if ques_4 == '5' %}checked{% endif %}>
+                                        <label for="q4-yes">Yes</label>
+                                    </div>
+                                    <div class="radio-button">
+                                        <input type="radio" id="q4-no" name="ques_4" value="1" {% if ques_4 == '1' %}checked{% endif %}>
+                                        <label for="q4-no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if error_message and not ques_4 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class="hr-top">
+                            <h2>B. Instructor Evaluation</h2>
+                            <hr class="hr-top">
+
+                            <div class="star-rating">
+                                <p class="question-container">5. In-depth knowledge of the subject.</p>
+                                <input type="radio" id="q5rating1" name="ques_5" value="1" {% if ques_5 == '1' %}checked{% endif %}>
+                                <label for="q5rating1"></label>
+                                <input type="radio" id="q5rating2" name="ques_5" value="2" {% if ques_5 == '2' %}checked{% endif %}>
+                                <label for="q5rating2"></label>
+                                <input type="radio" id="q5rating3" name="ques_5" value="3" {% if ques_5 == '3' %}checked{% endif %}>
+                                <label for="q5rating3"></label>
+                                <input type="radio" id="q5rating4" name="ques_5" value="4" {% if ques_5 == '4' %}checked{% endif %}>
+                                <label for="q5rating4"></label>
+                                <input type="radio" id="q5rating5" name="ques_5" value="5" {% if ques_5 == '5' %}checked{% endif %}>
+                                <label for="q5rating5"></label>
+                            </div>
+                            {% if error_message and not ques_5 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div class="star-rating">
+                                <p class="question-container">6. Overall evaluation of the instructor.</p>
+                                <input type="radio" id="q6rating1" name="ques_6" value="1" {% if ques_6 == '1' %}checked{% endif %}>
+                                <label for="q6rating1"></label>
+                                <input type="radio" id="q6rating2" name="ques_6" value="2" {% if ques_6 == '2' %}checked{% endif %}>
+                                <label for="q6rating2"></label>
+                                <input type="radio" id="q6rating3" name="ques_6" value="3" {% if ques_6 == '3' %}checked{% endif %}>
+                                <label for="q6rating3"></label>
+                                <input type="radio" id="q6rating4" name="ques_6" value="4" {% if ques_6 == '4' %}checked{% endif %}>
+                                <label for="q6rating4"></label>
+                                <input type="radio" id="q6rating5" name="ques_6" value="5" {% if ques_6 == '5' %}checked{% endif %}>
+                                <label for="q6rating5"></label>
+                            </div>
+                            {% if error_message and not ques_6 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div class="star-rating">
+                                <p class="question-container">7. Instructor was professional and well-prepared for the course.</p>
+                                <input type="radio" id="q7rating1" name="ques_7" value="1" {% if ques_7 == '1' %}checked{% endif %}>
+                                <label for="q7rating1"></label>
+                                <input type="radio" id="q7rating2" name="ques_7" value="2" {% if ques_7 == '2' %}checked{% endif %}>
+                                <label for="q7rating2"></label>
+                                <input type="radio" id="q7rating3" name="ques_7" value="3" {% if ques_7 == '3' %}checked{% endif %}>
+                                <label for="q7rating3"></label>
+                                <input type="radio" id="q7rating4" name="ques_7" value="4" {% if ques_7 == '4' %}checked{% endif %}>
+                                <label for="q7rating4"></label>
+                                <input type="radio" id="q7rating5" name="ques_7" value="5" {% if ques_7 == '5' %}checked{% endif %}>
+                                <label for="q7rating5"></label>
+                            </div>
+                            {% if error_message and not ques_7 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <p class="question-container">8. Was the instructor completely neutral about his/her affiliation with a company, proprietary school, etc.?</p>
+                                <div>
+                                    <div class="radio-button">
+                                        <input type="radio" id="q8-yes" name="ques_8" value="5" {% if ques_8 == '5' %}checked{% endif %}>
+                                        <label for="q8-yes">Yes</label>
+                                    </div>
+                                    <div class="radio-button">
+                                        <input type="radio" id="q8-no" name="ques_8" value="1" {% if ques_8 == '1' %}checked{% endif %}>
+                                        <label for="q8-no">No</label>
+                                    </div>
+                                </div>
+                            {% if error_message and not q8 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <p class="question-container">9. Was the MIAMI staff professional?</p>
+                            <div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q9-yes" name="ques_9" value="5" {% if ques_9 == '5' %}checked{% endif %}>
+                                    <label for="q9-yes">Yes</label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="q9-no" name="ques_9" value="1" {% if ques_9 == '1' %}checked{% endif %}>
+                                    <label for="q9-no">No</label>
+                                </div>
+                            </div>
+                            {% if error_message and not ques_9 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class="hr-top">
+                            <h2>C. Comments/Suggestions</h2>
+                            <hr class="hr-top">
+
+                            <div>
+                                <p class="question-container">10. Would you recommend this course to a person considering this program? Please explain why.</p>
+                                <div>
+                                    <label for="ques_10"></label>
+                                    <textarea id="ques_10" name="ques_10"
+                                              style="font-size: 14px; width: 80%; height: 100px">{{ ques_10 }}</textarea>
+                                </div>
+                            </div>
+                            {% if error_message and not ques_10 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div>
+                                <p class="question-container">11. What is the most important thing you will utilize from this class? Please explain why.</p>
+                                <div>
+                                    <label for="ques_11"></label>
+                                    <textarea id="ques_11" name="ques_11"
+                                              style="font-size: 14px; width: 80%; height: 100px">{{ ques_11 }}</textarea>
+                                </div>
+                            </div>
+                            {% if error_message and not ques_11 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class ="hr-form">
+
+                            <div>
+                                <p class="question-container">12. How did you hear about this class?</p>
+                                <div>
+                                    <label for="ques_12"></label>
+                                    <textarea id="ques_12" name="ques_12"
+                                              style="font-size: 14px; width: 80%; height: 100px">{{ ques_12 }}</textarea>
+                                </div>
+                            </div>
+                            {% if error_message and not ques_12 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
+
+                            <hr class="hr-top">
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="agreement" class="agreement-checkbox">
+                                    <span class="agreement-text">I authorize the MIAMI REALTORS® to utilize my comments as testimonials.</span>
+                                </label>
+                            </div>
+
+                            <hr class="hr-top">
+
+                            <!-- Submit Button -->
+                            <div class="submit-container">
+                                <button type="submit" class="btn btn-success btn-lg btn-rounded mb-4 mb-md-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 {% endif %}
-
-                <div class="header">
-                    <img src="/static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
-                </div>
-
-                <h1 class="rounded-box">Course Evaluation Form</h1>
-                <div class="survey-form">
-                    <form action="/" method="post">
-                        <!-- Hidden Field for regid -->
-                        <input type="hidden" name="regid" id="regid" value = "{{ regid }}">
-
-                        <hr class="hr-top">
-                        <h2>A. Course Evaluation</h2>
-                        <hr class="hr-top">
-
-                        <div class="star-rating">
-                            <p class="question-container">1. Instructions regarding the rules on attendance, break, etc. were clearly stated at the beginning of the course.</p>
-                            <input type="radio" id="q1rating1" name="ques_1" value="1" {% if ques_1 == '1' %}checked{% endif %}>
-                            <label for="q1rating1"></label>
-                            <input type="radio" id="q1rating2" name="ques_1" value="2" {% if ques_1 == '2' %}checked{% endif %}>
-                            <label for="q1rating2"></label>
-                            <input type="radio" id="q1rating3" name="ques_1" value="3" {% if ques_1 == '3' %}checked{% endif %}>
-                            <label for="q1rating3"></label>
-                            <input type="radio" id="q1rating4" name="ques_1" value="4" {% if ques_1 == '4' %}checked{% endif %}>
-                            <label for="q1rating4"></label>
-                            <input type="radio" id="q1rating5" name="ques_1" value="5" {% if ques_1 == '5' %}checked{% endif %}>
-                            <label for="q1rating5"></label>
-                        </div>
-                        {% if error_message and not ques_1 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <!-- Add more questions and input fields as needed -->
-                        <div class="star-rating">
-                            <p class="question-container">2. This course met my expectations.</p>
-                            <input type="radio" id="q2rating1" name="ques_2" value="1" {% if ques_2 == '1' %}checked{% endif %}>
-                            <label for="q2rating1"></label>
-                            <input type="radio" id="q2rating2" name="ques_2" value="2" {% if ques_2 == '2' %}checked{% endif %}>
-                            <label for="q2rating2"></label>
-                            <input type="radio" id="q2rating3" name="ques_2" value="3" {% if ques_2 == '3' %}checked{% endif %}>
-                            <label for="q2rating3"></label>
-                            <input type="radio" id="q2rating4" name="ques_2" value="4" {% if ques_2 == '4' %}checked{% endif %}>
-                            <label for="q2rating4"></label>
-                            <input type="radio" id="q2rating5" name="ques_2" value="5" {% if ques_2 == '5' %}checked{% endif %}>
-                            <label for="q2rating5"></label>
-                        </div>
-                        {% if error_message and not ques_2 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div class="star-rating">
-                            <p class="question-container">3. This course fulfilled its stated objectives.</p>
-                            <input type="radio" id="q3rating1" name="ques_3" value="1" {% if ques_3 == '1' %}checked{% endif %}>
-                            <label for="q3rating1"></label>
-                            <input type="radio" id="q3rating2" name="ques_3" value="2" {% if ques_3 == '2' %}checked{% endif %}>
-                            <label for="q3rating2"></label>
-                            <input type="radio" id="q3rating3" name="ques_3" value="3" {% if ques_3 == '3' %}checked{% endif %}>
-                            <label for="q3rating3"></label>
-                            <input type="radio" id="q3rating4" name="ques_3" value="4" {% if q3ues_ == '4' %}checked{% endif %}>
-                            <label for="q3rating4"></label>
-                            <input type="radio" id="q3rating5" name="ques_3" value="5" {% if ques_3 == '5' %}checked{% endif %}>
-                            <label for="q3rating5"></label>
-                        </div>
-                        {% if error_message and not ques_3 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div>
-                            <p class="question-container">4. Did the course finish on time?</p>
-                            <div>
-                                <div class="radio-button">
-                                    <input type="radio" id="q4-yes" name="ques_4" value="5" {% if ques_4 == '5' %}checked{% endif %}>
-                                    <label for="q4-yes">Yes</label>
-                                </div>
-                                <div class="radio-button">
-                                    <input type="radio" id="q4-no" name="ques_4" value="1" {% if ques_4 == '1' %}checked{% endif %}>
-                                    <label for="q4-no">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        {% if error_message and not ques_4 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class="hr-top">
-                        <h2>B. Please rate the instructor on the following</h2>
-                        <hr class="hr-top">
-
-                        <div class="star-rating">
-                            <p class="question-container">5. In-depth knowledge of the subject.</p>
-                            <input type="radio" id="q5rating1" name="ques_5" value="1" {% if ques_5 == '1' %}checked{% endif %}>
-                            <label for="q5rating1"></label>
-                            <input type="radio" id="q5rating2" name="ques_5" value="2" {% if ques_5 == '2' %}checked{% endif %}>
-                            <label for="q5rating2"></label>
-                            <input type="radio" id="q5rating3" name="ques_5" value="3" {% if ques_5 == '3' %}checked{% endif %}>
-                            <label for="q5rating3"></label>
-                            <input type="radio" id="q5rating4" name="ques_5" value="4" {% if ques_5 == '4' %}checked{% endif %}>
-                            <label for="q5rating4"></label>
-                            <input type="radio" id="q5rating5" name="ques_5" value="5" {% if ques_5 == '5' %}checked{% endif %}>
-                            <label for="q5rating5"></label>
-                        </div>
-                        {% if error_message and not ques_5 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div class="star-rating">
-                            <p class="question-container">6. Overall evaluation of the instructor.</p>
-                            <input type="radio" id="q6rating1" name="ques_6" value="1" {% if ques_6 == '1' %}checked{% endif %}>
-                            <label for="q6rating1"></label>
-                            <input type="radio" id="q6rating2" name="ques_6" value="2" {% if ques_6 == '2' %}checked{% endif %}>
-                            <label for="q6rating2"></label>
-                            <input type="radio" id="q6rating3" name="ques_6" value="3" {% if ques_6 == '3' %}checked{% endif %}>
-                            <label for="q6rating3"></label>
-                            <input type="radio" id="q6rating4" name="ques_6" value="4" {% if ques_6 == '4' %}checked{% endif %}>
-                            <label for="q6rating4"></label>
-                            <input type="radio" id="q6rating5" name="ques_6" value="5" {% if ques_6 == '5' %}checked{% endif %}>
-                            <label for="q6rating5"></label>
-                        </div>
-                        {% if error_message and not ques_6 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div class="star-rating">
-                            <p class="question-container">7. Instructor was professional and well-prepared for the course.</p>
-                            <input type="radio" id="q7rating1" name="ques_7" value="1" {% if ques_7 == '1' %}checked{% endif %}>
-                            <label for="q7rating1"></label>
-                            <input type="radio" id="q7rating2" name="ques_7" value="2" {% if ques_7 == '2' %}checked{% endif %}>
-                            <label for="q7rating2"></label>
-                            <input type="radio" id="q7rating3" name="ques_7" value="3" {% if ques_7 == '3' %}checked{% endif %}>
-                            <label for="q7rating3"></label>
-                            <input type="radio" id="q7rating4" name="ques_7" value="4" {% if ques_7 == '4' %}checked{% endif %}>
-                            <label for="q7rating4"></label>
-                            <input type="radio" id="q7rating5" name="ques_7" value="5" {% if ques_7 == '5' %}checked{% endif %}>
-                            <label for="q7rating5"></label>
-                        </div>
-                        {% if error_message and not ques_7 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <p class="question-container">8. Was the instructor completely neutral about his/her affiliation with a company, proprietary school, etc.?</p>
-                            <div>
-                                <div class="radio-button">
-                                    <input type="radio" id="q8-yes" name="ques_8" value="5" {% if ques_8 == '5' %}checked{% endif %}>
-                                    <label for="q8-yes">Yes</label>
-                                </div>
-                                <div class="radio-button">
-                                    <input type="radio" id="q8-no" name="ques_8" value="1" {% if ques_8 == '1' %}checked{% endif %}>
-                                    <label for="q8-no">No</label>
-                                </div>
-                            </div>
-                        {% if error_message and not q8 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <p class="question-container">9. Was the MIAMI staff professional?</p>
-                        <div>
-                            <div class="radio-button">
-                                <input type="radio" id="q9-yes" name="ques_9" value="5" {% if ques_9 == '5' %}checked{% endif %}>
-                                <label for="q9-yes">Yes</label>
-                            </div>
-                            <div class="radio-button">
-                                <input type="radio" id="q9-no" name="ques_9" value="1" {% if ques_9 == '1' %}checked{% endif %}>
-                                <label for="q9-no">No</label>
-                            </div>
-                        </div>
-                        {% if error_message and not ques_9 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class="hr-top">
-                        <h2>C. Comments/Suggestions</h2>
-                        <hr class="hr-top">
-
-                        <div>
-                            <p class="question-container">10. Would you recommend this course to a person considering this program? Please explain why.</p>
-                            <div>
-                                <label for="ques_10"></label>
-                                <textarea id="ques_10" name="ques_10"
-                                          style="font-size: 14px; width: 80%; height: 100px">{{ ques_10 }}</textarea>
-                            </div>
-                        </div>
-                        {% if error_message and not ques_10 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div>
-                            <p class="question-container">11. What is the most important thing you will utilize from this class? Please explain why.</p>
-                            <div>
-                                <label for="ques_11"></label>
-                                <textarea id="ques_11" name="ques_11"
-                                          style="font-size: 14px; width: 80%; height: 100px">{{ ques_11 }}</textarea>
-                            </div>
-                        </div>
-                        {% if error_message and not ques_11 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class ="hr-form">
-
-                        <div>
-                            <p class="question-container">12. How did you hear about this class?</p>
-                            <div>
-                                <label for="ques_12"></label>
-                                <textarea id="ques_12" name="ques_12"
-                                          style="font-size: 14px; width: 80%; height: 100px">{{ ques_12 }}</textarea>
-                            </div>
-                        </div>
-                        {% if error_message and not ques_12 %}
-                            <p class="error-message error-container">{{ error_message }}</p>
-                        {% endif %}
-
-                        <hr class="hr-top">
-
-                        <div>
-                            <label>
-                                <input type="checkbox" name="agreement" class="agreement-checkbox">
-                                <span class="agreement-text">I authorize the MIAMI REALTORS® to utilize my comments as testimonials.</span>
-                            </label>
-                        </div>
-
-                        <hr class="hr-top">
-
-                        <!-- Submit Button -->
-                        <div class="submit-container">
-                            <button type="submit" class="btn btn-success btn-lg btn-rounded mb-4 mb-md-0">Submit</button>
-                        </div>
-
-                    </form>
-                </div>
             </div>
         {% endif %}
     </body>
