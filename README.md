@@ -1,3 +1,3 @@
 # miamireSurveyFormProject
 
-A survey form that asks the user questions about the presentation/class they were in, and saves the responses to a .csv file.
+A survey form that asks the user questions about the course they took and saves that response within the Evaluation fields for a class registration in RAMCO.
