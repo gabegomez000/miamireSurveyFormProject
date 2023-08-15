@@ -98,7 +98,7 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
         if key != 'regid':  # Does not iterate through the regid (it's not a question)
             api_string += f"{question_list[index]['question_text']}"
             index = index + 1
-            api_string += f' ({value}) , '
+            api_string += f" ({value}) , "
 
     api_string = api_string[:-2]  # Trims extra comma and whitespace at the end of the string
 
@@ -115,8 +115,8 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
         'Entity': 'cobalt_classregistration',
         'Guid': regid,
         'AttributeValues': {'ramcosub_evaluationscoreavg=' + questionAverage +
-                            ',ramcosub_evaluation=#' + api_string + '#' +
-                            ',ramcosub_evaluationdate=' + current_date}
+                            ',ramcosub_evaluationdate=' + current_date +
+                            ',ramcosub_evaluation=#' + api_string + '#'}
     }
 
     requests.post(api_url, data=updateEval)  # Query
@@ -126,7 +126,7 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
     print("Response Status Code is: " + str(body["ResponseCode"]))  # For Testing
     print("Response Text is: " + str(body["ResponseText"]))
     """
-
+    
 
 """def write_to_csv(answers):
     fieldnames = ['regid', 'agreement',
