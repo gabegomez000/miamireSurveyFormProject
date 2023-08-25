@@ -96,11 +96,11 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
     index = 0  # Index for loop below
     for key, value in answers.items():  # Used to iterate and add alternating questions and answers for final response
         if key != 'regid':  # Does not iterate through the regid (it's not a question)
-            api_string += f"{question_list[index]['question_text']}"
+            api_string += f"{question_list[index]['question_text']}\r"
             index = index + 1
-            api_string += f" ({value}) , "
+            api_string += f"({value}) \r\r"
 
-    api_string = api_string[:-2]  # Trims extra comma and whitespace at the end of the string
+    api_string = api_string[:-3]  # Trims extra comma and whitespace at the end of the string
 
     now = datetime.datetime.today()  # Gets current date
     current_date = now.strftime("%Y-%m-%d")  # Converts current date to string
