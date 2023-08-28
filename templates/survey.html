@@ -58,13 +58,17 @@
                         <img src="/static/images/miamirelogo.png" class="img-fluid" alt="Header Image" />
                     </div>
 
-                    <h1 class="rounded-box" style="text-decoration:underline">Welcome, {{ contact }}!</h1>
+                    <h1 class="rounded-box">
+                      <span class="underlined">Welcome!</span><br>
+                      <span>{{ contact }}</span>
+                    </h1>
+
                     <div class="survey-form">
                         <form action="/" method="post">
                             <!-- Hidden Field for regid -->
                             <input type="hidden" name="regid" id="regid" value = "{{ regid }}">
                             <br>
-                            <h2 style="font-weight:bold; color:black">Please answer all questions for the following course:</h2>
+                            <h2 style="font-weight:bold; color:black">We'd love to hear your feedback for the following course:</h2>
                             <h3 class="rounded-box" style="color:white;  background-color: #113E70;">{{ course }}</h3>
                             <hr class="hr-top">
                             <h2>A. Course Evaluation</h2>
@@ -217,7 +221,7 @@
                                         <label for="q8-no">No</label>
                                     </div>
                                 </div>
-                            {% if error_message and not q8 %}
+                            {% if error_message and not ques_8 %}
                                 <p class="error-message error-container">{{ error_message }}</p>
                             {% endif %}
 
@@ -250,10 +254,7 @@
                                               style="font-size: 14px; width: 80%; height: 100px">{{ ques_10 }}</textarea>
                                 </div>
                             </div>
-                            {% if error_message and not ques_10 %}
-                                <p class="error-message error-container">{{ error_message }}</p>
-                            {% endif %}
-
+                        
                             <hr class ="hr-form">
 
                             <div>
@@ -264,9 +265,6 @@
                                               style="font-size: 14px; width: 80%; height: 100px">{{ ques_11 }}</textarea>
                                 </div>
                             </div>
-                            {% if error_message and not ques_11 %}
-                                <p class="error-message error-container">{{ error_message }}</p>
-                            {% endif %}
 
                             <hr class ="hr-form">
 
@@ -278,9 +276,6 @@
                                               style="font-size: 14px; width: 80%; height: 100px">{{ ques_12 }}</textarea>
                                 </div>
                             </div>
-                            {% if error_message and not ques_12 %}
-                                <p class="error-message error-container">{{ error_message }}</p>
-                            {% endif %}
 
                             <hr class="hr-top">
 

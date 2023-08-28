@@ -10,6 +10,10 @@ h1 {
     color: white;
 }
 
+.underlined {
+  text-decoration: underline;
+}
+
 .rounded-box {
   border-radius: 5px;
   background-color: #008446;

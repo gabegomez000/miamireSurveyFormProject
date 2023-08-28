@@ -21,18 +21,27 @@ def survey():
         surveyQuestions = ['ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5', 'ques_6',
                            'ques_7', 'ques_8', 'ques_9', 'ques_10', 'ques_11', 'ques_12']
         questionTotal = 0  # Keeps a tally of the TOTAL question score (Each question is worth 1-5 points)
+        commentFull = ""
 
         for question in surveyQuestions:
             answer = request.form.get(question)
             if not answer:
-                error_message = 'Please answer all questions.'
-                return render_template('survey.html', error_message=error_message, **request.form)
+                if question not in ['ques_10', 'ques_11', 'ques_12']:  # If a multiple choice question is empty, error
+                    error_message = 'Please answer all questions.'
+                    return render_template('survey.html', error_message=error_message, **request.form)
             else:
-                if question in ['ques_1', 'ques_2', 'ques_3', 'ques_5',
-                                'ques_6', 'ques_7', 'ques_8', 'ques_9']:
+                if question in ['ques_1', 'ques_2', 'ques_3', 'ques_4', 'ques_5',
+                                'ques_6', 'ques_7', 'ques_8', 'ques_9']:  # If question is mult-choice, add it to total
                     questionTotal += int(answer)
-        numQuestions = 8  # Number of questions that are 1-5 rankings (Do not include text response fields)
+                else:
+                    commentFull = commentFull + answer
+        numQuestions = 9  # Number of questions that are 1-5 rankings (Do not include text response fields)
         questionAverage = questionTotal / numQuestions  # Gets the average from 1-5 (This is the Evaluation Score)
+
+        if commentFull == "":
+            commentState = False
+        else:
+            commentState = True
 
         # Modify the response for the "agreement" parameter
         agreement = request.form.get('agreement')  # Retrieves the agreement parameter from the form
@@ -45,6 +54,7 @@ def survey():
         answers = request.form.to_dict()  # Answers = all form answers
 
         answers['agreement'] = agreement
+        answers['commentState'] = commentState
 
         """write_to_csv(answers)"""  # Leftover code to call scrapped .csv function
         push_eval_to_RAMCO(answers, questionAverage, answers['regid'])  # Calls the RAMCO push function with parameters
@@ -68,25 +78,18 @@ def survey():
         # Check if provided regid was valid
         if responseJson["ResponseCode"] == 200:
             courseName = responseJson["Data"]["cobalt_classid"]["Display"]  # Name of course
-            contactOriginal = responseJson["Data"]["cobalt_contactid"]["Display"]  # Name of contact
+            contactName = responseJson["Data"]["cobalt_contactid"]["Display"]  # Name of contact
             evalExists = responseJson["Data"]["ramcosub_evaluation"]  # Current Evaluation (If empty, returns None)
 
-            # Separate the contact's first name
-            index = contactOriginal.find(',')
-            if index == -1:
-                contactConverted = contactOriginal
-            else:
-                contactConverted = contactOriginal[index + 1:]
-
             if evalExists is not None:  # If an evaluation already exists in RAMCO for this class registration, display a redirect message
-                return render_template('survey.html', regid=regid, contact=contactConverted, course=courseName, evalCheck=True)
+                return render_template('survey.html', regid=regid, contact=contactName, course=courseName, evalCheck=True)
             else:  # If there is no evaluation yet, proceed with returning the survey form
-                return render_template('survey.html', regid=regid, contact=contactConverted, course=courseName, evalCheck=False)
+                return render_template('survey.html', regid=regid, contact=contactName, course=courseName, evalCheck=False)
         else:
-            # Returns the fallback template for invalid regid; redirects to Miami Realtors website
+            # Returns the fallback template for INVALID regid; redirects to Miami Realtors website
             return render_template('survey.html', regid=None)
     else:
-        # Returns the fallback template for empty regid; redirects to Miami Realtors website
+        # Returns the fallback template for EMPTY regid; redirects to Miami Realtors website
         return render_template('survey.html', regid=None)
 
 
@@ -95,19 +98,20 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
     api_string = ""  # Used to store the user's responses that will be passed to RAMCO
     index = 0  # Index for loop below
     for key, value in answers.items():  # Used to iterate and add alternating questions and answers for final response
-        if key != 'regid':  # Does not iterate through the regid (it's not a question)
+        if key != 'regid' and key != 'commentState':  # Does not iterate through the regid (it's not a question)
             api_string += f"{question_list[index]['question_text']}\r"
             index = index + 1
-            api_string += f"({value}) \r\r"
+            api_string += f"Answer: ({value}) \r\r"
 
     api_string = api_string[:-3]  # Trims extra comma and whitespace at the end of the string
 
     now = datetime.datetime.today()  # Gets current date
     current_date = now.strftime("%Y-%m-%d")  # Converts current date to string
 
-    """print("api_string is: " + api_string)  # For testing
+    print("api_string is: " + api_string)  # For testing
     print("Guid is: " + regid)
-    print("Current Date is: " + current_date)"""
+    print("Current Date is: " + current_date)
+    print(answers["commentState"])
 
     updateEval = {  # Query and query parameters
         'Key': api_key,
@@ -116,16 +120,16 @@ def push_eval_to_RAMCO(answers, questionAverage, regid):
         'Guid': regid,
         'AttributeValues': {'ramcosub_evaluationscoreavg=' + questionAverage +
                             ',ramcosub_evaluationdate=' + current_date +
+                            ',ramcosub_evaluationcomments=' + str(answers['commentState']) +
                             ',ramcosub_evaluation=#' + api_string + '#'}
     }
 
-    requests.post(api_url, data=updateEval)  # Query
+    response = requests.post(api_url, data=updateEval)  # Query
 
-    """
     body = json.loads(response.text)
     print("Response Status Code is: " + str(body["ResponseCode"]))  # For Testing
     print("Response Text is: " + str(body["ResponseText"]))
-    """
+
     
 
 """def write_to_csv(answers):
