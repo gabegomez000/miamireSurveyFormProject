@@ -4,6 +4,12 @@ p {
     line-height: 1.5;
 }
 
+.numbers {
+    letter-spacing: 0.85rem;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
 h1 {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -120,10 +126,6 @@ input[type="text"] {
     margin-right: 10px;
 }
 
-.radio-button input[type="radio"] {
-    margin-right: 5px;
-}
-
 .radio-button label {
     font-weight: normal;
     font-size: 0.8em; /* Adjust as needed */
@@ -173,7 +175,6 @@ label.active:before {
 .star-rating label:before {
     content: "\2606";
     font-size: 2.5rem;
-    margin-right: 5px;
     color: black;
 }
 
