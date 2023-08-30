@@ -156,14 +156,17 @@ input[type="text"] {
     margin: 50px;
 }
 
-/* Custom styling for star-shaped radio buttons */
+label.active:before {
+    content: "\2605" !important;
+    color: gold !important;
+}
+
 .star-rating input[type="radio"] {
     display: none;
 }
 
 .star-rating label {
     display: inline-block;
-    font-size: 0;
     cursor: pointer;
 }
 
@@ -171,19 +174,17 @@ input[type="text"] {
     content: "\2606";
     font-size: 2.5rem;
     margin-right: 5px;
-    color: black; /* Change the color to your desired color */
-
+    color: black;
 }
 
 .star-rating input[type="radio"]:checked ~ label:before {
     content: "\2605";
-    color: gold; /* Change the color to your desired color */
+    color: gold;
 }
 
 .star-rating input[type="radio"]:checked ~ label ~ label:before {
     content: "\2606";
-    color: black; /* Change the color to your desired color */
-
+    color: black;
 }
 
 @media (max-width: 576px) {
