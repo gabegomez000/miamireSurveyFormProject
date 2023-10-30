@@ -78,13 +78,30 @@ def survey():
         # Check if provided regid was valid
         if responseJson["ResponseCode"] == 200:
             courseName = responseJson["Data"]["cobalt_classid"]["Display"]  # Name of course
+            courseID = responseJson["Data"]["cobalt_classid"]["Value"]  # ID of course
             contactName = responseJson["Data"]["cobalt_contactid"]["Display"]  # Name of contact
             evalExists = responseJson["Data"]["ramcosub_evaluation"]  # Current Evaluation (If empty, returns None)
 
+            retrieveInstructor = {
+                'Key': api_key,
+                'Operation': 'GetEntity',
+                'Entity': 'cobalt_class',
+                'Guid': courseID,
+                'Attributes': {'cobalt_cobalt_classinstructor_cobalt_class/cobalt_name'}
+            }
+
+            instructorResponse = requests.post(api_url, data=retrieveInstructor)  # Query
+            instructorJson = json.loads(instructorResponse.text)  # Response
+            print(instructorJson["ResponseCode"])
+            print(instructorJson["Data"])
+            courseInstructor = instructorJson["Data"]["cobalt_cobalt_classinstructor_cobalt_class"][0]["cobalt_name"]
+
             if evalExists is not None:  # If an evaluation already exists in RAMCO for this class registration, display a redirect message
-                return render_template('survey.html', regid=regid, contact=contactName, course=courseName, evalCheck=True)
+                return render_template('survey.html', regid=regid, contact=contactName, course=courseName,
+                                       evalCheck=True, instructor=courseInstructor)
             else:  # If there is no evaluation yet, proceed with returning the survey form
-                return render_template('survey.html', regid=regid, contact=contactName, course=courseName, evalCheck=False)
+                return render_template('survey.html', regid=regid, contact=contactName, course=courseName,
+                                       evalCheck=False, instructor=courseInstructor)
         else:
             # Returns the fallback template for INVALID regid; redirects to Miami Realtors website
             return render_template('survey.html', regid=None)
