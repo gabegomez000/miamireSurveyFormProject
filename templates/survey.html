@@ -70,7 +70,9 @@
                             <br>
                             <h2 style="font-weight:bold; color:black">We'd love to hear your feedback for the following course:</h2>
                             <h3 class="rounded-box" style="color:white;  background-color: #113E70;">Course: {{ course }}</h3>
-                            <h3 class="rounded-box" style="color:white;  background-color: #113E70;">Instructor: {{ instructor }}</h3>
+                            {% if instructor and instructor != "Instructor not available" %}
+                                <h3 class="rounded-box" style="color:white; background-color: #113E70;">Instructor: {{ instructor }}</h3>
+                            {% endif %}
                             <hr class="hr-top">
                             <h2>A. Course Evaluation</h2>
                             <hr class="hr-top">

@@ -94,7 +94,12 @@ def survey():
             instructorJson = json.loads(instructorResponse.text)  # Response
             print(instructorJson["ResponseCode"])
             print(instructorJson["Data"])
-            courseInstructor = instructorJson["Data"]["cobalt_cobalt_classinstructor_cobalt_class"][0]["cobalt_name"]
+            # Check if instructor data is available and non-empty
+            if instructorJson["Data"]["cobalt_cobalt_classinstructor_cobalt_class"]:
+                courseInstructor = instructorJson["Data"]["cobalt_cobalt_classinstructor_cobalt_class"][0][
+                    "cobalt_name"]
+            else:
+                courseInstructor = ""  # Or any default value you prefer
 
             if evalExists is not None:  # If an evaluation already exists in RAMCO for this class registration, display a redirect message
                 return render_template('survey.html', regid=regid, contact=contactName, course=courseName,
