@@ -275,16 +275,26 @@
                                 </div>
                             </div>
 
-                            <hr class ="hr-form">
+                            <hr class="hr-form">
+                            <h2>D. Additional Information</h2>
+                            <hr class="hr-form">
 
-                            <div>
-                                <p class="question-container">12. How did you hear about this class?</p>
-                                <div>
-                                    <label for="ques_12"></label>
-                                    <textarea id="ques_12" name="ques_12"
-                                              style="font-size: 14px; width: 80%; height: 100px">{{ ques_12 }}</textarea>
-                                </div>
+                            <div class="question-container">
+                                <p>12. How did you hear about this class?</p>
+                                <select name="ques_12" id="ques_12" required>
+                                    <option value="">-- Select an option --</option>
+                                    <option value="12.Email" {% if ques_12 == 'Email' %}selected{% endif %}>Email</option>
+                                    <option value="12.Miami Realtors Website/Calendar" {% if ques_12 == 'Miami Realtors Website/Calendar' %}selected{% endif %}>Miami Realtors Website/Calendar</option>
+                                    <option value="12.Broker" {% if ques_12 == 'Broker' %}selected{% endif %}>Broker</option>
+                                    <option value="12.Social Media" {% if ques_12 == 'Social Media' %}selected{% endif %}>Social Media</option>
+                                    <option value="12.Word of Mouth" {% if ques_12 == 'Word of Mouth' %}selected{% endif %}>Word of Mouth</option>
+                                    <option value="12.Other" {% if ques_12 == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
                             </div>
+
+                            {% if error_message and not ques_12 %}
+                                <p class="error-message error-container">{{ error_message }}</p>
+                            {% endif %}
 
                             <hr class="hr-top">
 
